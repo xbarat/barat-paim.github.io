@@ -4,28 +4,12 @@ title: "My New Hugo Site"
 theme: "PaperMod"
 
 params:
-  author: "Barath Paim"
-  description: "Experiments in AI Fine-tuning and Model Building"
-  defaultTheme: "auto"
-  showReadingTime: true
-  showShareButtons: true
-  # Add more parameters as needed
+  homeInfoParams:
+    Title: Hi there wave
+    Content: Can be Info, links, about...
 
   social:
     - name: "GitHub"
       url: "https://github.com/barat-paim"
     - name: "LinkedIn"
       url: "https://linkedin.com/in/yourusername"
-    # Add more social links as needed
-
-menu:
-  main:
-    - name: "Home"
-      url: "/"
-      weight: 1
-    - name: "About"
-      url: "/about/"
-      weight: 2
-    - name: "Projects"
-      url: "/posts/"
-      weight: 3
