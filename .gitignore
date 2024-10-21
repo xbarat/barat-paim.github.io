@@ -1,5 +1,4 @@
 # Hugo files to ignore
-/public/
 /resources/
 .hugo_build.lock
 
