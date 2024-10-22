@@ -5,10 +5,226 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>First Post | barath.xyz</title>
+<title>finetuning Llama3.2 1B | barath.xyz</title>
 <meta name="keywords" content="">
-<meta name="description" content="my career pivot have been hell of a story so
-if you are interested in that you should ask me">
+<meta name="description" content="Status Update Log
+v0.0.1 - Initial Setup and Project Kickoff
+
+Created the project directory structure and initialized version control.
+Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers.
+
+v0.0.2 - Dataset Preparation
+
+Selected the SQuAD dataset for fine-tuning the model.
+Loaded the dataset and performed initial data cleaning and formatting.
+Created scripts for dataset exploration to understand question-answer distribution and context.
+
+v0.0.3 - Model Selection
+
+Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks.
+Downloaded and set up the pre-trained model in the development environment.
+Verified model loading and initial inference to ensure correct setup.
+
+v0.0.4 - Experimentation with Quantization
+
+Tested quantization techniques to fit the LLaMA model in available GPU memory.
+Implemented 8-bit quantization using BitsAndBytesConfig to reduce memory footprint.
+Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance.
+
+v0.0.5 - Gradient Checkpointing and Mixed Precision
+
+Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly.
+Utilized mixed precision training (fp16) to further optimize memory usage.
+Both approaches combined allowed training without running into memory limitations.
+
+v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup
+
+Implemented PEFT with LoRA to add trainable adapters to the LLaMA model.
+Used the peft library for seamless integration of LoRA adapters.
+Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance.
+
+v0.0.7 - Custom GPU Memory Allocation Checks
+
+Encountered discrepancies between reported and actual available memory on the GPU instance.
+Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks.
+Adjusted model configurations based on insights to ensure efficient use of GPU resources.
+
+v0.0.8 - Optimizer and Training Configuration
+
+Implemented paged_adamw_8bit optimizer to offload optimizer states to CPU, reducing GPU memory requirements.
+Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage.
+Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B.
+
+v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors
+
+First training attempt resulted in CUDA OOM errors.
+Identified causes related to batch size and learning rate settings.
+Made adjustments to the batch size and added a configuration to handle memory fragmentation (PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True).
+
+v0.1.0 - Preventing System Hibernation
+
+Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training.
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+Added symlinks for /etc/systemd/system/sleep.target, /suspend.target, /hibernate.target, and /hybrid-sleep.target to /dev/null.
+
+v0.1.1 - Iteration Speed Improvements
+
+Increased training iteration speed from 10s/iteration to 15s/iteration.
+Adjusted gradient checkpointing settings to reduce computation overhead.
+Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps.
+
+v0.1.2 - Learning Rate Finder and Checkpoint Issues
+
+Initiated the learning rate search process to find an optimal rate for model convergence.
+Received warnings about incompatible settings (use_cache=True) with gradient checkpointing; resolved by switching to use_cache=False.
+Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring further refinements in checkpointing.
+
+v0.1.3 - Learning Rate Finder Success
+
+Successfully ran the learning rate finder without OOM errors.
+Estimated total time for the learning rate search was about 17 minutes, an acceptable duration.
+Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions.
+Prepared for the main training loop using the identified learning rate.
+
+v0.1.4 - Taming the Llama: Training Begins
+
+Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset.
+Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency.
+DataLoader workers were set to 4, contributing to efficient data handling during training.
+Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours.
+Addressed frequent tokenizer parallelism warnings by setting the following environment variable:
+import os
+os.environ[&#34;TOKENIZERS_PARALLELISM&#34;] = &#34;false&#34;
+
+
+v0.1.5 - Training Results and Warnings Addressed
+
+Fine-tuned the LLaMA model over 834 iterations, successfully completing training.
+Observed loss reduction from 9.73 initially to 7.95 at the end of epoch 3.
+Learning rate started from 0.0099 and adjusted dynamically during training for optimal learning.
+Validation losses reduced consistently, reaching 8.11 during regular evaluations.
+Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters.
+
+v0.1.6 - Evaluation Planning for LLaMA Model
+
+Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset.
+Key steps included:
+
+Loading the fine-tuned model and tokenizer using the Transformers library.
+Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score.
+Preparing the validation set from the SQuAD dataset, loaded through DataLoader.
+Generating answers using the fine-tuned model to predict responses for questions in the validation set.
+Calculating EM and F1 scores for each prediction to evaluate performance.
+Looping through the entire validation set to derive average scores, providing insights into overall model efficacy.
+Saving evaluation results for future reference.
+
+
+Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning.
+
+v0.1.7 - Prevented System Hibernation (Note Added)
+
+Added a note regarding the persistence of power-saving feature changes across reboots:
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+
+v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration
+
+Increased iteration speed from 10s/iteration to 15s/iteration.
+However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours.
+Searching for new ways to decrease overall training time.
+Attached are screenshots of progress for two different versions (try1 and try2) for comparison.
+
+v0.1.9 - Learning Rate Search and Issues with Checkpointing
+
+Began the process of finding the optimal learning rate for the LLaMA model fine-tuning.
+Successfully loaded the SQuAD dataset and prepared it for training.
+GPU Memory updates:
+
+After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB.
+After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB.
+
+
+Set up gradient checkpointing and started the learning rate search.
+Result: 5s/iteration it is taking 2 hours to find the learning rate
+Issues encountered:
+
+use_cache=True found incompatible with gradient checkpointing, switched to use_cache=False.
+Received user warnings regarding deprecated parameters (use_reentrant parameter) and quantization specifics.
+The learning rate search indicated increasing learning rates with corresponding loss values.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further.
+Planning to run a subset of the data to reduce the time to 5 odd minutes
+
+
+
+v0.1.10 - Learning Rate Finder Running Without OOM Error
+
+The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement.
+Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete.
+Observations and potential next steps:
+
+Total time of 17 minutes is longer than the initial 10-minute target but still reasonable.
+Potential adjustments to reduce time further:
+
+Reduce num_iterations from 50 to 40 or 30.
+Increase batch_size if GPU memory allows.
+Decrease accumulation_steps if needed.
+
+
+Once the learning rate finder completes, the optimal learning rate will be used for the main training loop.
+Monitoring the following after learning rate completion:
+
+Optimal learning rate found.
+Initial training loss.
+Training speed in the main loop.
+
+
+
+
+
+v0.1.11 - Increased Batch Size and Improved Training Time
+
+Improved training iteration speed (7sec -&gt; 10sec -&gt; 15.5sec -&gt; 16.17 sec/it) by adjusting several hyperparameters:
+
+Batch size increased to 12.
+Gradient accumulation steps set to 3.
+DataLoader workers set to 4.
+
+
+Achieved better GPU utilization without running into Out of Memory (OOM) errors.
+
+v0.1.12 - Evaluation Plan Execution for LLaMA Model
+
+Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set.
+Key stages completed:
+
+Loaded the fine-tuned model and tokenizer from the saved directory.
+Defined Exact Match (EM) and F1 Score as evaluation metrics.
+Prepared the validation set using DataLoader, ensuring efficient data batching.
+Generated predictions for the validation set questions using a question-context input format.
+Calculated EM and F1 scores for each prediction.
+Evaluated the entire validation set to derive average EM and F1 scores.
+Saved evaluation results to a JSON file for future analysis.
+
+
+Next steps involve analyzing the results, interpreting the model&rsquo;s performance against benchmarks, and making decisions on further training or adjustments.
+
+v0.1.13 - Final Training Summary and Future Plans
+
+Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset.
+Achieved a final loss of 7.95 and a validation loss of 8.11.
+Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process.
+Evaluation results indicated areas of strong performance and potential for further fine-tuning.
+Planned next steps:
+
+Analyze specific instances of lower performance to understand failure cases.
+Adjust hyperparameters based on evaluation insights.
+Consider additional rounds of fine-tuning or model architecture adjustments if needed.
+Start preparing for model deployment if evaluation results meet project benchmarks.
+
+
+">
 <meta name="author" content="">
 <link rel="canonical" href="https://barath.xyz/posts/firstpost/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
@@ -56,18 +272,450 @@ if you are interested in that you should ask me">
         }
 
     </style>
-</noscript><meta property="og:title" content="First Post" />
-<meta property="og:description" content="my career pivot have been hell of a story so
-if you are interested in that you should ask me" />
+</noscript><meta property="og:title" content="finetuning Llama3.2 1B" />
+<meta property="og:description" content="Status Update Log
+v0.0.1 - Initial Setup and Project Kickoff
+
+Created the project directory structure and initialized version control.
+Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers.
+
+v0.0.2 - Dataset Preparation
+
+Selected the SQuAD dataset for fine-tuning the model.
+Loaded the dataset and performed initial data cleaning and formatting.
+Created scripts for dataset exploration to understand question-answer distribution and context.
+
+v0.0.3 - Model Selection
+
+Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks.
+Downloaded and set up the pre-trained model in the development environment.
+Verified model loading and initial inference to ensure correct setup.
+
+v0.0.4 - Experimentation with Quantization
+
+Tested quantization techniques to fit the LLaMA model in available GPU memory.
+Implemented 8-bit quantization using BitsAndBytesConfig to reduce memory footprint.
+Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance.
+
+v0.0.5 - Gradient Checkpointing and Mixed Precision
+
+Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly.
+Utilized mixed precision training (fp16) to further optimize memory usage.
+Both approaches combined allowed training without running into memory limitations.
+
+v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup
+
+Implemented PEFT with LoRA to add trainable adapters to the LLaMA model.
+Used the peft library for seamless integration of LoRA adapters.
+Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance.
+
+v0.0.7 - Custom GPU Memory Allocation Checks
+
+Encountered discrepancies between reported and actual available memory on the GPU instance.
+Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks.
+Adjusted model configurations based on insights to ensure efficient use of GPU resources.
+
+v0.0.8 - Optimizer and Training Configuration
+
+Implemented paged_adamw_8bit optimizer to offload optimizer states to CPU, reducing GPU memory requirements.
+Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage.
+Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B.
+
+v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors
+
+First training attempt resulted in CUDA OOM errors.
+Identified causes related to batch size and learning rate settings.
+Made adjustments to the batch size and added a configuration to handle memory fragmentation (PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True).
+
+v0.1.0 - Preventing System Hibernation
+
+Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training.
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+Added symlinks for /etc/systemd/system/sleep.target, /suspend.target, /hibernate.target, and /hybrid-sleep.target to /dev/null.
+
+v0.1.1 - Iteration Speed Improvements
+
+Increased training iteration speed from 10s/iteration to 15s/iteration.
+Adjusted gradient checkpointing settings to reduce computation overhead.
+Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps.
+
+v0.1.2 - Learning Rate Finder and Checkpoint Issues
+
+Initiated the learning rate search process to find an optimal rate for model convergence.
+Received warnings about incompatible settings (use_cache=True) with gradient checkpointing; resolved by switching to use_cache=False.
+Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring further refinements in checkpointing.
+
+v0.1.3 - Learning Rate Finder Success
+
+Successfully ran the learning rate finder without OOM errors.
+Estimated total time for the learning rate search was about 17 minutes, an acceptable duration.
+Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions.
+Prepared for the main training loop using the identified learning rate.
+
+v0.1.4 - Taming the Llama: Training Begins
+
+Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset.
+Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency.
+DataLoader workers were set to 4, contributing to efficient data handling during training.
+Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours.
+Addressed frequent tokenizer parallelism warnings by setting the following environment variable:
+import os
+os.environ[&#34;TOKENIZERS_PARALLELISM&#34;] = &#34;false&#34;
+
+
+v0.1.5 - Training Results and Warnings Addressed
+
+Fine-tuned the LLaMA model over 834 iterations, successfully completing training.
+Observed loss reduction from 9.73 initially to 7.95 at the end of epoch 3.
+Learning rate started from 0.0099 and adjusted dynamically during training for optimal learning.
+Validation losses reduced consistently, reaching 8.11 during regular evaluations.
+Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters.
+
+v0.1.6 - Evaluation Planning for LLaMA Model
+
+Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset.
+Key steps included:
+
+Loading the fine-tuned model and tokenizer using the Transformers library.
+Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score.
+Preparing the validation set from the SQuAD dataset, loaded through DataLoader.
+Generating answers using the fine-tuned model to predict responses for questions in the validation set.
+Calculating EM and F1 scores for each prediction to evaluate performance.
+Looping through the entire validation set to derive average scores, providing insights into overall model efficacy.
+Saving evaluation results for future reference.
+
+
+Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning.
+
+v0.1.7 - Prevented System Hibernation (Note Added)
+
+Added a note regarding the persistence of power-saving feature changes across reboots:
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+
+v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration
+
+Increased iteration speed from 10s/iteration to 15s/iteration.
+However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours.
+Searching for new ways to decrease overall training time.
+Attached are screenshots of progress for two different versions (try1 and try2) for comparison.
+
+v0.1.9 - Learning Rate Search and Issues with Checkpointing
+
+Began the process of finding the optimal learning rate for the LLaMA model fine-tuning.
+Successfully loaded the SQuAD dataset and prepared it for training.
+GPU Memory updates:
+
+After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB.
+After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB.
+
+
+Set up gradient checkpointing and started the learning rate search.
+Result: 5s/iteration it is taking 2 hours to find the learning rate
+Issues encountered:
+
+use_cache=True found incompatible with gradient checkpointing, switched to use_cache=False.
+Received user warnings regarding deprecated parameters (use_reentrant parameter) and quantization specifics.
+The learning rate search indicated increasing learning rates with corresponding loss values.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further.
+Planning to run a subset of the data to reduce the time to 5 odd minutes
+
+
+
+v0.1.10 - Learning Rate Finder Running Without OOM Error
+
+The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement.
+Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete.
+Observations and potential next steps:
+
+Total time of 17 minutes is longer than the initial 10-minute target but still reasonable.
+Potential adjustments to reduce time further:
+
+Reduce num_iterations from 50 to 40 or 30.
+Increase batch_size if GPU memory allows.
+Decrease accumulation_steps if needed.
+
+
+Once the learning rate finder completes, the optimal learning rate will be used for the main training loop.
+Monitoring the following after learning rate completion:
+
+Optimal learning rate found.
+Initial training loss.
+Training speed in the main loop.
+
+
+
+
+
+v0.1.11 - Increased Batch Size and Improved Training Time
+
+Improved training iteration speed (7sec -&gt; 10sec -&gt; 15.5sec -&gt; 16.17 sec/it) by adjusting several hyperparameters:
+
+Batch size increased to 12.
+Gradient accumulation steps set to 3.
+DataLoader workers set to 4.
+
+
+Achieved better GPU utilization without running into Out of Memory (OOM) errors.
+
+v0.1.12 - Evaluation Plan Execution for LLaMA Model
+
+Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set.
+Key stages completed:
+
+Loaded the fine-tuned model and tokenizer from the saved directory.
+Defined Exact Match (EM) and F1 Score as evaluation metrics.
+Prepared the validation set using DataLoader, ensuring efficient data batching.
+Generated predictions for the validation set questions using a question-context input format.
+Calculated EM and F1 scores for each prediction.
+Evaluated the entire validation set to derive average EM and F1 scores.
+Saved evaluation results to a JSON file for future analysis.
+
+
+Next steps involve analyzing the results, interpreting the model&rsquo;s performance against benchmarks, and making decisions on further training or adjustments.
+
+v0.1.13 - Final Training Summary and Future Plans
+
+Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset.
+Achieved a final loss of 7.95 and a validation loss of 8.11.
+Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process.
+Evaluation results indicated areas of strong performance and potential for further fine-tuning.
+Planned next steps:
+
+Analyze specific instances of lower performance to understand failure cases.
+Adjust hyperparameters based on evaluation insights.
+Consider additional rounds of fine-tuning or model architecture adjustments if needed.
+Start preparing for model deployment if evaluation results meet project benchmarks.
+
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://barath.xyz/posts/firstpost/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-10-18T12:00:00+00:00" />
 <meta property="article:modified_time" content="2024-10-18T12:00:00+00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="First Post"/>
-<meta name="twitter:description" content="my career pivot have been hell of a story so
-if you are interested in that you should ask me"/>
+<meta name="twitter:title" content="finetuning Llama3.2 1B"/>
+<meta name="twitter:description" content="Status Update Log
+v0.0.1 - Initial Setup and Project Kickoff
+
+Created the project directory structure and initialized version control.
+Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers.
+
+v0.0.2 - Dataset Preparation
+
+Selected the SQuAD dataset for fine-tuning the model.
+Loaded the dataset and performed initial data cleaning and formatting.
+Created scripts for dataset exploration to understand question-answer distribution and context.
+
+v0.0.3 - Model Selection
+
+Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks.
+Downloaded and set up the pre-trained model in the development environment.
+Verified model loading and initial inference to ensure correct setup.
+
+v0.0.4 - Experimentation with Quantization
+
+Tested quantization techniques to fit the LLaMA model in available GPU memory.
+Implemented 8-bit quantization using BitsAndBytesConfig to reduce memory footprint.
+Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance.
+
+v0.0.5 - Gradient Checkpointing and Mixed Precision
+
+Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly.
+Utilized mixed precision training (fp16) to further optimize memory usage.
+Both approaches combined allowed training without running into memory limitations.
+
+v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup
+
+Implemented PEFT with LoRA to add trainable adapters to the LLaMA model.
+Used the peft library for seamless integration of LoRA adapters.
+Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance.
+
+v0.0.7 - Custom GPU Memory Allocation Checks
+
+Encountered discrepancies between reported and actual available memory on the GPU instance.
+Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks.
+Adjusted model configurations based on insights to ensure efficient use of GPU resources.
+
+v0.0.8 - Optimizer and Training Configuration
+
+Implemented paged_adamw_8bit optimizer to offload optimizer states to CPU, reducing GPU memory requirements.
+Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage.
+Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B.
+
+v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors
+
+First training attempt resulted in CUDA OOM errors.
+Identified causes related to batch size and learning rate settings.
+Made adjustments to the batch size and added a configuration to handle memory fragmentation (PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True).
+
+v0.1.0 - Preventing System Hibernation
+
+Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training.
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+Added symlinks for /etc/systemd/system/sleep.target, /suspend.target, /hibernate.target, and /hybrid-sleep.target to /dev/null.
+
+v0.1.1 - Iteration Speed Improvements
+
+Increased training iteration speed from 10s/iteration to 15s/iteration.
+Adjusted gradient checkpointing settings to reduce computation overhead.
+Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps.
+
+v0.1.2 - Learning Rate Finder and Checkpoint Issues
+
+Initiated the learning rate search process to find an optimal rate for model convergence.
+Received warnings about incompatible settings (use_cache=True) with gradient checkpointing; resolved by switching to use_cache=False.
+Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring further refinements in checkpointing.
+
+v0.1.3 - Learning Rate Finder Success
+
+Successfully ran the learning rate finder without OOM errors.
+Estimated total time for the learning rate search was about 17 minutes, an acceptable duration.
+Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions.
+Prepared for the main training loop using the identified learning rate.
+
+v0.1.4 - Taming the Llama: Training Begins
+
+Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset.
+Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency.
+DataLoader workers were set to 4, contributing to efficient data handling during training.
+Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours.
+Addressed frequent tokenizer parallelism warnings by setting the following environment variable:
+import os
+os.environ[&#34;TOKENIZERS_PARALLELISM&#34;] = &#34;false&#34;
+
+
+v0.1.5 - Training Results and Warnings Addressed
+
+Fine-tuned the LLaMA model over 834 iterations, successfully completing training.
+Observed loss reduction from 9.73 initially to 7.95 at the end of epoch 3.
+Learning rate started from 0.0099 and adjusted dynamically during training for optimal learning.
+Validation losses reduced consistently, reaching 8.11 during regular evaluations.
+Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters.
+
+v0.1.6 - Evaluation Planning for LLaMA Model
+
+Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset.
+Key steps included:
+
+Loading the fine-tuned model and tokenizer using the Transformers library.
+Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score.
+Preparing the validation set from the SQuAD dataset, loaded through DataLoader.
+Generating answers using the fine-tuned model to predict responses for questions in the validation set.
+Calculating EM and F1 scores for each prediction to evaluate performance.
+Looping through the entire validation set to derive average scores, providing insights into overall model efficacy.
+Saving evaluation results for future reference.
+
+
+Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning.
+
+v0.1.7 - Prevented System Hibernation (Note Added)
+
+Added a note regarding the persistence of power-saving feature changes across reboots:
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+
+v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration
+
+Increased iteration speed from 10s/iteration to 15s/iteration.
+However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours.
+Searching for new ways to decrease overall training time.
+Attached are screenshots of progress for two different versions (try1 and try2) for comparison.
+
+v0.1.9 - Learning Rate Search and Issues with Checkpointing
+
+Began the process of finding the optimal learning rate for the LLaMA model fine-tuning.
+Successfully loaded the SQuAD dataset and prepared it for training.
+GPU Memory updates:
+
+After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB.
+After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB.
+
+
+Set up gradient checkpointing and started the learning rate search.
+Result: 5s/iteration it is taking 2 hours to find the learning rate
+Issues encountered:
+
+use_cache=True found incompatible with gradient checkpointing, switched to use_cache=False.
+Received user warnings regarding deprecated parameters (use_reentrant parameter) and quantization specifics.
+The learning rate search indicated increasing learning rates with corresponding loss values.
+Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further.
+Planning to run a subset of the data to reduce the time to 5 odd minutes
+
+
+
+v0.1.10 - Learning Rate Finder Running Without OOM Error
+
+The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement.
+Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete.
+Observations and potential next steps:
+
+Total time of 17 minutes is longer than the initial 10-minute target but still reasonable.
+Potential adjustments to reduce time further:
+
+Reduce num_iterations from 50 to 40 or 30.
+Increase batch_size if GPU memory allows.
+Decrease accumulation_steps if needed.
+
+
+Once the learning rate finder completes, the optimal learning rate will be used for the main training loop.
+Monitoring the following after learning rate completion:
+
+Optimal learning rate found.
+Initial training loss.
+Training speed in the main loop.
+
+
+
+
+
+v0.1.11 - Increased Batch Size and Improved Training Time
+
+Improved training iteration speed (7sec -&gt; 10sec -&gt; 15.5sec -&gt; 16.17 sec/it) by adjusting several hyperparameters:
+
+Batch size increased to 12.
+Gradient accumulation steps set to 3.
+DataLoader workers set to 4.
+
+
+Achieved better GPU utilization without running into Out of Memory (OOM) errors.
+
+v0.1.12 - Evaluation Plan Execution for LLaMA Model
+
+Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set.
+Key stages completed:
+
+Loaded the fine-tuned model and tokenizer from the saved directory.
+Defined Exact Match (EM) and F1 Score as evaluation metrics.
+Prepared the validation set using DataLoader, ensuring efficient data batching.
+Generated predictions for the validation set questions using a question-context input format.
+Calculated EM and F1 scores for each prediction.
+Evaluated the entire validation set to derive average EM and F1 scores.
+Saved evaluation results to a JSON file for future analysis.
+
+
+Next steps involve analyzing the results, interpreting the model&rsquo;s performance against benchmarks, and making decisions on further training or adjustments.
+
+v0.1.13 - Final Training Summary and Future Plans
+
+Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset.
+Achieved a final loss of 7.95 and a validation loss of 8.11.
+Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process.
+Evaluation results indicated areas of strong performance and potential for further fine-tuning.
+Planned next steps:
+
+Analyze specific instances of lower performance to understand failure cases.
+Adjust hyperparameters based on evaluation insights.
+Consider additional rounds of fine-tuning or model architecture adjustments if needed.
+Start preparing for model deployment if evaluation results meet project benchmarks.
+
+
+"/>
 
 
 <script type="application/ld+json">
@@ -84,7 +732,7 @@ if you are interested in that you should ask me"/>
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "First Post",
+      "name": "finetuning Llama3.2 1B",
       "item": "https://barath.xyz/posts/firstpost/"
     }
   ]
@@ -94,14 +742,14 @@ if you are interested in that you should ask me"/>
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "First Post",
-  "name": "First Post",
-  "description": "my career pivot have been hell of a story so if you are interested in that you should ask me\n",
+  "headline": "finetuning Llama3.2 1B",
+  "name": "finetuning Llama3.2 1B",
+  "description": "Status Update Log v0.0.1 - Initial Setup and Project Kickoff Created the project directory structure and initialized version control. Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers. v0.0.2 - Dataset Preparation Selected the SQuAD dataset for fine-tuning the model. Loaded the dataset and performed initial data cleaning and formatting. Created scripts for dataset exploration to understand question-answer distribution and context. v0.0.3 - Model Selection Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks. Downloaded and set up the pre-trained model in the development environment. Verified model loading and initial inference to ensure correct setup. v0.0.4 - Experimentation with Quantization Tested quantization techniques to fit the LLaMA model in available GPU memory. Implemented 8-bit quantization using BitsAndBytesConfig to reduce memory footprint. Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance. v0.0.5 - Gradient Checkpointing and Mixed Precision Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly. Utilized mixed precision training (fp16) to further optimize memory usage. Both approaches combined allowed training without running into memory limitations. v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup Implemented PEFT with LoRA to add trainable adapters to the LLaMA model. Used the peft library for seamless integration of LoRA adapters. Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance. v0.0.7 - Custom GPU Memory Allocation Checks Encountered discrepancies between reported and actual available memory on the GPU instance. Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks. Adjusted model configurations based on insights to ensure efficient use of GPU resources. v0.0.8 - Optimizer and Training Configuration Implemented paged_adamw_8bit optimizer to offload optimizer states to CPU, reducing GPU memory requirements. Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage. Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B. v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors First training attempt resulted in CUDA OOM errors. Identified causes related to batch size and learning rate settings. Made adjustments to the batch size and added a configuration to handle memory fragmentation (PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True). v0.1.0 - Preventing System Hibernation Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training. sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target Added symlinks for /etc/systemd/system/sleep.target, /suspend.target, /hibernate.target, and /hybrid-sleep.target to /dev/null. v0.1.1 - Iteration Speed Improvements Increased training iteration speed from 10s/iteration to 15s/iteration. Adjusted gradient checkpointing settings to reduce computation overhead. Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps. v0.1.2 - Learning Rate Finder and Checkpoint Issues Initiated the learning rate search process to find an optimal rate for model convergence. Received warnings about incompatible settings (use_cache=True) with gradient checkpointing; resolved by switching to use_cache=False. Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time. Ended with a KeyboardInterrupt after the 27th iteration, requiring further refinements in checkpointing. v0.1.3 - Learning Rate Finder Success Successfully ran the learning rate finder without OOM errors. Estimated total time for the learning rate search was about 17 minutes, an acceptable duration. Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions. Prepared for the main training loop using the identified learning rate. v0.1.4 - Taming the Llama: Training Begins Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset. Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency. DataLoader workers were set to 4, contributing to efficient data handling during training. Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours. Addressed frequent tokenizer parallelism warnings by setting the following environment variable: import os os.environ[\u0026#34;TOKENIZERS_PARALLELISM\u0026#34;] = \u0026#34;false\u0026#34; v0.1.5 - Training Results and Warnings Addressed Fine-tuned the LLaMA model over 834 iterations, successfully completing training. Observed loss reduction from 9.73 initially to 7.95 at the end of epoch 3. Learning rate started from 0.0099 and adjusted dynamically during training for optimal learning. Validation losses reduced consistently, reaching 8.11 during regular evaluations. Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters. v0.1.6 - Evaluation Planning for LLaMA Model Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset. Key steps included: Loading the fine-tuned model and tokenizer using the Transformers library. Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score. Preparing the validation set from the SQuAD dataset, loaded through DataLoader. Generating answers using the fine-tuned model to predict responses for questions in the validation set. Calculating EM and F1 scores for each prediction to evaluate performance. Looping through the entire validation set to derive average scores, providing insights into overall model efficacy. Saving evaluation results for future reference. Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning. v0.1.7 - Prevented System Hibernation (Note Added) Added a note regarding the persistence of power-saving feature changes across reboots: sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration Increased iteration speed from 10s/iteration to 15s/iteration. However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours. Searching for new ways to decrease overall training time. Attached are screenshots of progress for two different versions (try1 and try2) for comparison. v0.1.9 - Learning Rate Search and Issues with Checkpointing Began the process of finding the optimal learning rate for the LLaMA model fine-tuning. Successfully loaded the SQuAD dataset and prepared it for training. GPU Memory updates: After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB. After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB. Set up gradient checkpointing and started the learning rate search. Result: 5s/iteration it is taking 2 hours to find the learning rate Issues encountered: use_cache=True found incompatible with gradient checkpointing, switched to use_cache=False. Received user warnings regarding deprecated parameters (use_reentrant parameter) and quantization specifics. The learning rate search indicated increasing learning rates with corresponding loss values. Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further. Planning to run a subset of the data to reduce the time to 5 odd minutes v0.1.10 - Learning Rate Finder Running Without OOM Error The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement. Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete. Observations and potential next steps: Total time of 17 minutes is longer than the initial 10-minute target but still reasonable. Potential adjustments to reduce time further: Reduce num_iterations from 50 to 40 or 30. Increase batch_size if GPU memory allows. Decrease accumulation_steps if needed. Once the learning rate finder completes, the optimal learning rate will be used for the main training loop. Monitoring the following after learning rate completion: Optimal learning rate found. Initial training loss. Training speed in the main loop. v0.1.11 - Increased Batch Size and Improved Training Time Improved training iteration speed (7sec -\u0026gt; 10sec -\u0026gt; 15.5sec -\u0026gt; 16.17 sec/it) by adjusting several hyperparameters: Batch size increased to 12. Gradient accumulation steps set to 3. DataLoader workers set to 4. Achieved better GPU utilization without running into Out of Memory (OOM) errors. v0.1.12 - Evaluation Plan Execution for LLaMA Model Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set. Key stages completed: Loaded the fine-tuned model and tokenizer from the saved directory. Defined Exact Match (EM) and F1 Score as evaluation metrics. Prepared the validation set using DataLoader, ensuring efficient data batching. Generated predictions for the validation set questions using a question-context input format. Calculated EM and F1 scores for each prediction. Evaluated the entire validation set to derive average EM and F1 scores. Saved evaluation results to a JSON file for future analysis. Next steps involve analyzing the results, interpreting the model\u0026rsquo;s performance against benchmarks, and making decisions on further training or adjustments. v0.1.13 - Final Training Summary and Future Plans Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset. Achieved a final loss of 7.95 and a validation loss of 8.11. Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process. Evaluation results indicated areas of strong performance and potential for further fine-tuning. Planned next steps: Analyze specific instances of lower performance to understand failure cases. Adjust hyperparameters based on evaluation insights. Consider additional rounds of fine-tuning or model architecture adjustments if needed. Start preparing for model deployment if evaluation results meet project benchmarks. ",
   "keywords": [
     
   ],
-  "articleBody": "my career pivot have been hell of a story so if you are interested in that you should ask me\n",
-  "wordCount" : "20",
+  "articleBody": "Status Update Log v0.0.1 - Initial Setup and Project Kickoff Created the project directory structure and initialized version control. Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers. v0.0.2 - Dataset Preparation Selected the SQuAD dataset for fine-tuning the model. Loaded the dataset and performed initial data cleaning and formatting. Created scripts for dataset exploration to understand question-answer distribution and context. v0.0.3 - Model Selection Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks. Downloaded and set up the pre-trained model in the development environment. Verified model loading and initial inference to ensure correct setup. v0.0.4 - Experimentation with Quantization Tested quantization techniques to fit the LLaMA model in available GPU memory. Implemented 8-bit quantization using BitsAndBytesConfig to reduce memory footprint. Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance. v0.0.5 - Gradient Checkpointing and Mixed Precision Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly. Utilized mixed precision training (fp16) to further optimize memory usage. Both approaches combined allowed training without running into memory limitations. v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup Implemented PEFT with LoRA to add trainable adapters to the LLaMA model. Used the peft library for seamless integration of LoRA adapters. Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance. v0.0.7 - Custom GPU Memory Allocation Checks Encountered discrepancies between reported and actual available memory on the GPU instance. Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks. Adjusted model configurations based on insights to ensure efficient use of GPU resources. v0.0.8 - Optimizer and Training Configuration Implemented paged_adamw_8bit optimizer to offload optimizer states to CPU, reducing GPU memory requirements. Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage. Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B. v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors First training attempt resulted in CUDA OOM errors. Identified causes related to batch size and learning rate settings. Made adjustments to the batch size and added a configuration to handle memory fragmentation (PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True). v0.1.0 - Preventing System Hibernation Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training. sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target Added symlinks for /etc/systemd/system/sleep.target, /suspend.target, /hibernate.target, and /hybrid-sleep.target to /dev/null. v0.1.1 - Iteration Speed Improvements Increased training iteration speed from 10s/iteration to 15s/iteration. Adjusted gradient checkpointing settings to reduce computation overhead. Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps. v0.1.2 - Learning Rate Finder and Checkpoint Issues Initiated the learning rate search process to find an optimal rate for model convergence. Received warnings about incompatible settings (use_cache=True) with gradient checkpointing; resolved by switching to use_cache=False. Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time. Ended with a KeyboardInterrupt after the 27th iteration, requiring further refinements in checkpointing. v0.1.3 - Learning Rate Finder Success Successfully ran the learning rate finder without OOM errors. Estimated total time for the learning rate search was about 17 minutes, an acceptable duration. Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions. Prepared for the main training loop using the identified learning rate. v0.1.4 - Taming the Llama: Training Begins Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset. Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency. DataLoader workers were set to 4, contributing to efficient data handling during training. Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours. Addressed frequent tokenizer parallelism warnings by setting the following environment variable: import os os.environ[\"TOKENIZERS_PARALLELISM\"] = \"false\" v0.1.5 - Training Results and Warnings Addressed Fine-tuned the LLaMA model over 834 iterations, successfully completing training. Observed loss reduction from 9.73 initially to 7.95 at the end of epoch 3. Learning rate started from 0.0099 and adjusted dynamically during training for optimal learning. Validation losses reduced consistently, reaching 8.11 during regular evaluations. Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters. v0.1.6 - Evaluation Planning for LLaMA Model Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset. Key steps included: Loading the fine-tuned model and tokenizer using the Transformers library. Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score. Preparing the validation set from the SQuAD dataset, loaded through DataLoader. Generating answers using the fine-tuned model to predict responses for questions in the validation set. Calculating EM and F1 scores for each prediction to evaluate performance. Looping through the entire validation set to derive average scores, providing insights into overall model efficacy. Saving evaluation results for future reference. Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning. v0.1.7 - Prevented System Hibernation (Note Added) Added a note regarding the persistence of power-saving feature changes across reboots: sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration Increased iteration speed from 10s/iteration to 15s/iteration. However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours. Searching for new ways to decrease overall training time. Attached are screenshots of progress for two different versions (try1 and try2) for comparison. v0.1.9 - Learning Rate Search and Issues with Checkpointing Began the process of finding the optimal learning rate for the LLaMA model fine-tuning. Successfully loaded the SQuAD dataset and prepared it for training. GPU Memory updates: After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB. After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB. Set up gradient checkpointing and started the learning rate search. Result: 5s/iteration it is taking 2 hours to find the learning rate Issues encountered: use_cache=True found incompatible with gradient checkpointing, switched to use_cache=False. Received user warnings regarding deprecated parameters (use_reentrant parameter) and quantization specifics. The learning rate search indicated increasing learning rates with corresponding loss values. Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further. Planning to run a subset of the data to reduce the time to 5 odd minutes v0.1.10 - Learning Rate Finder Running Without OOM Error The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement. Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete. Observations and potential next steps: Total time of 17 minutes is longer than the initial 10-minute target but still reasonable. Potential adjustments to reduce time further: Reduce num_iterations from 50 to 40 or 30. Increase batch_size if GPU memory allows. Decrease accumulation_steps if needed. Once the learning rate finder completes, the optimal learning rate will be used for the main training loop. Monitoring the following after learning rate completion: Optimal learning rate found. Initial training loss. Training speed in the main loop. v0.1.11 - Increased Batch Size and Improved Training Time Improved training iteration speed (7sec -\u003e 10sec -\u003e 15.5sec -\u003e 16.17 sec/it) by adjusting several hyperparameters: Batch size increased to 12. Gradient accumulation steps set to 3. DataLoader workers set to 4. Achieved better GPU utilization without running into Out of Memory (OOM) errors. v0.1.12 - Evaluation Plan Execution for LLaMA Model Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set. Key stages completed: Loaded the fine-tuned model and tokenizer from the saved directory. Defined Exact Match (EM) and F1 Score as evaluation metrics. Prepared the validation set using DataLoader, ensuring efficient data batching. Generated predictions for the validation set questions using a question-context input format. Calculated EM and F1 scores for each prediction. Evaluated the entire validation set to derive average EM and F1 scores. Saved evaluation results to a JSON file for future analysis. Next steps involve analyzing the results, interpreting the model’s performance against benchmarks, and making decisions on further training or adjustments. v0.1.13 - Final Training Summary and Future Plans Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset. Achieved a final loss of 7.95 and a validation loss of 8.11. Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process. Evaluation results indicated areas of strong performance and potential for further fine-tuning. Planned next steps: Analyze specific instances of lower performance to understand failure cases. Adjust hyperparameters based on evaluation insights. Consider additional rounds of fine-tuning or model architecture adjustments if needed. Start preparing for model deployment if evaluation results meet project benchmarks. ",
+  "wordCount" : "1458",
   "inLanguage": "en",
   "datePublished": "2024-10-18T12:00:00Z",
   "dateModified": "2024-10-18T12:00:00Z",
@@ -170,14 +818,230 @@ if you are interested in that you should ask me"/>
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      First Post
+      finetuning Llama3.2 1B
     </h1>
     <div class="post-meta"><span title='2024-10-18 12:00:00 +0000 UTC'>October 18, 2024</span>
 
 </div>
   </header> 
-  <div class="post-content"><p>my career pivot have been hell of a story so
-if you are interested in that you should ask me</p>
+  <div class="post-content"><h1 id="status-update-log">Status Update Log<a hidden class="anchor" aria-hidden="true" href="#status-update-log">#</a></h1>
+<h2 id="v001---initial-setup-and-project-kickoff">v0.0.1 - Initial Setup and Project Kickoff<a hidden class="anchor" aria-hidden="true" href="#v001---initial-setup-and-project-kickoff">#</a></h2>
+<ul>
+<li>Created the project directory structure and initialized version control.</li>
+<li>Set up the basic environment using Python 3.12 and installed the required libraries for Transformer-based model training, including PyTorch and HuggingFace Transformers.</li>
+</ul>
+<h2 id="v002---dataset-preparation">v0.0.2 - Dataset Preparation<a hidden class="anchor" aria-hidden="true" href="#v002---dataset-preparation">#</a></h2>
+<ul>
+<li>Selected the SQuAD dataset for fine-tuning the model.</li>
+<li>Loaded the dataset and performed initial data cleaning and formatting.</li>
+<li>Created scripts for dataset exploration to understand question-answer distribution and context.</li>
+</ul>
+<h2 id="v003---model-selection">v0.0.3 - Model Selection<a hidden class="anchor" aria-hidden="true" href="#v003---model-selection">#</a></h2>
+<ul>
+<li>Chose the LLaMA-3.2-1B model as the base for fine-tuning due to its capabilities with language modeling tasks.</li>
+<li>Downloaded and set up the pre-trained model in the development environment.</li>
+<li>Verified model loading and initial inference to ensure correct setup.</li>
+</ul>
+<h2 id="v004---experimentation-with-quantization">v0.0.4 - Experimentation with Quantization<a hidden class="anchor" aria-hidden="true" href="#v004---experimentation-with-quantization">#</a></h2>
+<ul>
+<li>Tested quantization techniques to fit the LLaMA model in available GPU memory.</li>
+<li>Implemented 8-bit quantization using <code>BitsAndBytesConfig</code> to reduce memory footprint.</li>
+<li>Quantization helped in reducing memory usage and allowed the model to run smoothly on the g4dn.xlarge instance.</li>
+</ul>
+<h2 id="v005---gradient-checkpointing-and-mixed-precision">v0.0.5 - Gradient Checkpointing and Mixed Precision<a hidden class="anchor" aria-hidden="true" href="#v005---gradient-checkpointing-and-mixed-precision">#</a></h2>
+<ul>
+<li>Enabled gradient checkpointing to save memory during backpropagation by recalculating activations on-the-fly.</li>
+<li>Utilized mixed precision training (fp16) to further optimize memory usage.</li>
+<li>Both approaches combined allowed training without running into memory limitations.</li>
+</ul>
+<h2 id="v006---parameter-efficient-fine-tuning-peft-setup">v0.0.6 - Parameter-Efficient Fine-Tuning (PEFT) Setup<a hidden class="anchor" aria-hidden="true" href="#v006---parameter-efficient-fine-tuning-peft-setup">#</a></h2>
+<ul>
+<li>Implemented PEFT with LoRA to add trainable adapters to the LLaMA model.</li>
+<li>Used the <code>peft</code> library for seamless integration of LoRA adapters.</li>
+<li>Ensured that the adapters effectively reduced the number of trainable parameters while maintaining model performance.</li>
+</ul>
+<h2 id="v007---custom-gpu-memory-allocation-checks">v0.0.7 - Custom GPU Memory Allocation Checks<a hidden class="anchor" aria-hidden="true" href="#v007---custom-gpu-memory-allocation-checks">#</a></h2>
+<ul>
+<li>Encountered discrepancies between reported and actual available memory on the GPU instance.</li>
+<li>Wrote custom scripts to monitor GPU memory allocation and identify bottlenecks.</li>
+<li>Adjusted model configurations based on insights to ensure efficient use of GPU resources.</li>
+</ul>
+<h2 id="v008---optimizer-and-training-configuration">v0.0.8 - Optimizer and Training Configuration<a hidden class="anchor" aria-hidden="true" href="#v008---optimizer-and-training-configuration">#</a></h2>
+<ul>
+<li>Implemented <code>paged_adamw_8bit</code> optimizer to offload optimizer states to CPU, reducing GPU memory requirements.</li>
+<li>Introduced gradient accumulation to simulate larger batch sizes without increasing memory usage.</li>
+<li>Configured learning rate schedules and optimizer settings to suit the training requirements of LLaMA-3.2-1B.</li>
+</ul>
+<h2 id="v009---initial-training-attempt-and-cuda-out-of-memory-oom-errors">v0.0.9 - Initial Training Attempt and CUDA Out of Memory (OOM) Errors<a hidden class="anchor" aria-hidden="true" href="#v009---initial-training-attempt-and-cuda-out-of-memory-oom-errors">#</a></h2>
+<ul>
+<li>First training attempt resulted in CUDA OOM errors.</li>
+<li>Identified causes related to batch size and learning rate settings.</li>
+<li>Made adjustments to the batch size and added a configuration to handle memory fragmentation (<code>PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True</code>).</li>
+</ul>
+<h2 id="v010---preventing-system-hibernation">v0.1.0 - Preventing System Hibernation<a hidden class="anchor" aria-hidden="true" href="#v010---preventing-system-hibernation">#</a></h2>
+<ul>
+<li>Prevented the system from entering sleep, suspend, or hibernation states to avoid interruptions during training.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+</span></span></code></pre></div></li>
+<li>Added symlinks for <code>/etc/systemd/system/sleep.target</code>, <code>/suspend.target</code>, <code>/hibernate.target</code>, and <code>/hybrid-sleep.target</code> to <code>/dev/null</code>.</li>
+</ul>
+<h2 id="v011---iteration-speed-improvements">v0.1.1 - Iteration Speed Improvements<a hidden class="anchor" aria-hidden="true" href="#v011---iteration-speed-improvements">#</a></h2>
+<ul>
+<li>Increased training iteration speed from 10s/iteration to 15s/iteration.</li>
+<li>Adjusted gradient checkpointing settings to reduce computation overhead.</li>
+<li>Achieved more stable training runs by reducing memory consumption through optimized batch sizes and accumulation steps.</li>
+</ul>
+<h2 id="v012---learning-rate-finder-and-checkpoint-issues">v0.1.2 - Learning Rate Finder and Checkpoint Issues<a hidden class="anchor" aria-hidden="true" href="#v012---learning-rate-finder-and-checkpoint-issues">#</a></h2>
+<ul>
+<li>Initiated the learning rate search process to find an optimal rate for model convergence.</li>
+<li>Received warnings about incompatible settings (<code>use_cache=True</code>) with gradient checkpointing; resolved by switching to <code>use_cache=False</code>.</li>
+<li>Iteration speed during learning rate search was approximately 5s/iteration, which needed adjustments to reduce overall time.</li>
+<li>Ended with a <code>KeyboardInterrupt</code> after the 27th iteration, requiring further refinements in checkpointing.</li>
+</ul>
+<h2 id="v013---learning-rate-finder-success">v0.1.3 - Learning Rate Finder Success<a hidden class="anchor" aria-hidden="true" href="#v013---learning-rate-finder-success">#</a></h2>
+<ul>
+<li>Successfully ran the learning rate finder without OOM errors.</li>
+<li>Estimated total time for the learning rate search was about 17 minutes, an acceptable duration.</li>
+<li>Achieved a significant improvement in stability, with consistent training progress without memory-related interruptions.</li>
+<li>Prepared for the main training loop using the identified learning rate.</li>
+</ul>
+<h2 id="v014---taming-the-llama-training-begins">v0.1.4 - Taming the Llama: Training Begins<a hidden class="anchor" aria-hidden="true" href="#v014---taming-the-llama-training-begins">#</a></h2>
+<ul>
+<li>Began fine-tuning LLaMA-3.2-1B on the SQuAD dataset.</li>
+<li>Set batch size to 12 and gradient accumulation steps to 3 for balanced training and memory efficiency.</li>
+<li>DataLoader workers were set to 4, contributing to efficient data handling during training.</li>
+<li>Iteration speed improved to 16.17s/iteration, allowing a full training cycle to complete in around 4 hours.</li>
+<li>Addressed frequent tokenizer parallelism warnings by setting the following environment variable:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#34;TOKENIZERS_PARALLELISM&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;false&#34;</span>
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="v015---training-results-and-warnings-addressed">v0.1.5 - Training Results and Warnings Addressed<a hidden class="anchor" aria-hidden="true" href="#v015---training-results-and-warnings-addressed">#</a></h2>
+<ul>
+<li>Fine-tuned the LLaMA model over 834 iterations, successfully completing training.</li>
+<li>Observed loss reduction from <strong>9.73</strong> initially to <strong>7.95</strong> at the end of epoch 3.</li>
+<li>Learning rate started from <strong>0.0099</strong> and adjusted dynamically during training for optimal learning.</li>
+<li>Validation losses reduced consistently, reaching <strong>8.11</strong> during regular evaluations.</li>
+<li>Encountered warnings related to quantization and checkpointing, resolved by modifying training parameters.</li>
+</ul>
+<h2 id="v016---evaluation-planning-for-llama-model">v0.1.6 - Evaluation Planning for LLaMA Model<a hidden class="anchor" aria-hidden="true" href="#v016---evaluation-planning-for-llama-model">#</a></h2>
+<ul>
+<li>Developed an evaluation plan to assess the performance of the fine-tuned LLaMA-3.2-1B model on the SQuAD dataset.</li>
+<li>Key steps included:
+<ol>
+<li>Loading the fine-tuned model and tokenizer using the Transformers library.</li>
+<li>Defining evaluation metrics, focusing on Exact Match (EM) and F1 Score.</li>
+<li>Preparing the validation set from the SQuAD dataset, loaded through DataLoader.</li>
+<li>Generating answers using the fine-tuned model to predict responses for questions in the validation set.</li>
+<li>Calculating EM and F1 scores for each prediction to evaluate performance.</li>
+<li>Looping through the entire validation set to derive average scores, providing insights into overall model efficacy.</li>
+<li>Saving evaluation results for future reference.</li>
+</ol>
+</li>
+<li>Next steps involve running the evaluation process, interpreting results, and identifying areas for further improvement or fine-tuning.</li>
+</ul>
+<h2 id="v017---prevented-system-hibernation-note-added">v0.1.7 - Prevented System Hibernation (Note Added)<a hidden class="anchor" aria-hidden="true" href="#v017---prevented-system-hibernation-note-added">#</a></h2>
+<ul>
+<li>Added a note regarding the persistence of power-saving feature changes across reboots:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="v018---increased-training-iteration-speed-adjusting-for-duration">v0.1.8 - Increased Training Iteration Speed, Adjusting for Duration<a hidden class="anchor" aria-hidden="true" href="#v018---increased-training-iteration-speed-adjusting-for-duration">#</a></h2>
+<ul>
+<li>Increased iteration speed from 10s/iteration to 15s/iteration.</li>
+<li>However, the number of iterations also increased from 5000 to 8000, resulting in an estimated training duration of 32 hours.</li>
+<li>Searching for new ways to decrease overall training time.</li>
+<li>Attached are screenshots of progress for two different versions (try1 and try2) for comparison.</li>
+</ul>
+<h2 id="v019---learning-rate-search-and-issues-with-checkpointing">v0.1.9 - Learning Rate Search and Issues with Checkpointing<a hidden class="anchor" aria-hidden="true" href="#v019---learning-rate-search-and-issues-with-checkpointing">#</a></h2>
+<ul>
+<li>Began the process of finding the optimal learning rate for the LLaMA model fine-tuning.</li>
+<li>Successfully loaded the SQuAD dataset and prepared it for training.</li>
+<li>GPU Memory updates:
+<ul>
+<li>After loading the tokenizer: Allocated: 0.00 GB, Reserved: 0.00 GB.</li>
+<li>After model loading with quantization and adding LoRA configuration: Allocated: 2.03 GB, Reserved: 2.64 GB.</li>
+</ul>
+</li>
+<li>Set up gradient checkpointing and started the learning rate search.</li>
+<li>Result: 5s/iteration it is taking 2 hours to find the learning rate</li>
+<li>Issues encountered:
+<ul>
+<li><code>use_cache=True</code> found incompatible with gradient checkpointing, switched to <code>use_cache=False</code>.</li>
+<li>Received user warnings regarding deprecated parameters (<code>use_reentrant</code> parameter) and quantization specifics.</li>
+<li>The learning rate search indicated increasing learning rates with corresponding loss values.</li>
+<li>Ended with a KeyboardInterrupt after the 27th iteration, requiring adjustments to proceed further.</li>
+<li>Planning to run a subset of the data to reduce the time to 5 odd minutes</li>
+</ul>
+</li>
+</ul>
+<h2 id="v0110---learning-rate-finder-running-without-oom-error">v0.1.10 - Learning Rate Finder Running Without OOM Error<a hidden class="anchor" aria-hidden="true" href="#v0110---learning-rate-finder-running-without-oom-error">#</a></h2>
+<ul>
+<li>The learning rate finder is now running without encountering Out of Memory (OOM) errors, which is a significant improvement.</li>
+<li>Current iteration speed is approximately 2.49 seconds per iteration, with an estimated total time of 17 minutes to complete.</li>
+<li>Observations and potential next steps:
+<ul>
+<li>Total time of 17 minutes is longer than the initial 10-minute target but still reasonable.</li>
+<li>Potential adjustments to reduce time further:
+<ul>
+<li>Reduce <code>num_iterations</code> from 50 to 40 or 30.</li>
+<li>Increase <code>batch_size</code> if GPU memory allows.</li>
+<li>Decrease <code>accumulation_steps</code> if needed.</li>
+</ul>
+</li>
+<li>Once the learning rate finder completes, the optimal learning rate will be used for the main training loop.</li>
+<li>Monitoring the following after learning rate completion:
+<ul>
+<li>Optimal learning rate found.</li>
+<li>Initial training loss.</li>
+<li>Training speed in the main loop.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="v0111---increased-batch-size-and-improved-training-time">v0.1.11 - Increased Batch Size and Improved Training Time<a hidden class="anchor" aria-hidden="true" href="#v0111---increased-batch-size-and-improved-training-time">#</a></h2>
+<ul>
+<li>Improved training iteration speed (7sec -&gt; 10sec -&gt; 15.5sec -&gt; 16.17 sec/it) by adjusting several hyperparameters:
+<ul>
+<li>Batch size increased to 12.</li>
+<li>Gradient accumulation steps set to 3.</li>
+<li>DataLoader workers set to 4.</li>
+</ul>
+</li>
+<li>Achieved better GPU utilization without running into Out of Memory (OOM) errors.</li>
+</ul>
+<h2 id="v0112---evaluation-plan-execution-for-llama-model">v0.1.12 - Evaluation Plan Execution for LLaMA Model<a hidden class="anchor" aria-hidden="true" href="#v0112---evaluation-plan-execution-for-llama-model">#</a></h2>
+<ul>
+<li>Initiated the evaluation process of the fine-tuned LLaMA-3.2-1B model on the SQuAD validation set.</li>
+<li>Key stages completed:
+<ol>
+<li>Loaded the fine-tuned model and tokenizer from the saved directory.</li>
+<li>Defined Exact Match (EM) and F1 Score as evaluation metrics.</li>
+<li>Prepared the validation set using DataLoader, ensuring efficient data batching.</li>
+<li>Generated predictions for the validation set questions using a question-context input format.</li>
+<li>Calculated EM and F1 scores for each prediction.</li>
+<li>Evaluated the entire validation set to derive average EM and F1 scores.</li>
+<li>Saved evaluation results to a JSON file for future analysis.</li>
+</ol>
+</li>
+<li>Next steps involve analyzing the results, interpreting the model&rsquo;s performance against benchmarks, and making decisions on further training or adjustments.</li>
+</ul>
+<h2 id="v0113---final-training-summary-and-future-plans">v0.1.13 - Final Training Summary and Future Plans<a hidden class="anchor" aria-hidden="true" href="#v0113---final-training-summary-and-future-plans">#</a></h2>
+<ul>
+<li>Completed training and evaluation of LLaMA-3.2-1B on the SQuAD dataset.</li>
+<li>Achieved a final loss of <strong>7.95</strong> and a validation loss of <strong>8.11</strong>.</li>
+<li>Recorded average F1 Score and Exact Match (EM) metrics from the evaluation process.</li>
+<li>Evaluation results indicated areas of strong performance and potential for further fine-tuning.</li>
+<li>Planned next steps:
+<ul>
+<li>Analyze specific instances of lower performance to understand failure cases.</li>
+<li>Adjust hyperparameters based on evaluation insights.</li>
+<li>Consider additional rounds of fine-tuning or model architecture adjustments if needed.</li>
+<li>Start preparing for model deployment if evaluation results meet project benchmarks.</li>
+</ul>
+</li>
+</ul>
 
 
   </div>

@@ -5,9 +5,6 @@
     <loc>https://barath.xyz/about/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://barath.xyz/posts/anotherpost/</loc>
-    <lastmod>2024-10-18T12:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://barath.xyz/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
   </url><url>
@@ -16,6 +13,9 @@
   </url><url>
     <loc>https://barath.xyz/posts/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://barath.xyz/posts/anotherpost/</loc>
+    <lastmod>2024-10-16T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://barath.xyz/categories/</loc>
   </url><url>
