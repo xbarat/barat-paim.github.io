@@ -1,15 +1,31 @@
 baseURL: "https://barath.xyz/"
 languageCode: "en-us"
-title: "My New Hugo Site"
+title: "barath.xyz"
 theme: "PaperMod"
 
 params:
   homeInfoParams:
-    Title: Hi there wave
-    Content: Can be Info, links, about...
+    Title: hi there wave..
+    Content: |
+      AI product engineer focused on large language models and generative AI.
+      |
+      Currently exploring model fine-tuning and multimodal applications.
+      |
+      Previously: pm/spm in regtech, patientcare, social commerce
+      Education: Stanford, IIMB, IITM
 
   social:
     - name: "GitHub"
       url: "https://github.com/barat-paim"
+    - name: "Hugging Face"
+      url: "https://huggingface.com"
     - name: "LinkedIn"
       url: "https://linkedin.com/in/yourusername"
+
+profileMode:
+    enabled: true
+    subtitle: |
+      Recent Projects:
+      • Fine-tuning LLaMA 3.2 (1B) on SQuAD dataset
+      • AI-powered News with DALL-E, ElevenLabs
+      • Multimodal agentic framework in insurance
