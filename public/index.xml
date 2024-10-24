@@ -253,6 +253,18 @@ do focussed people or professionals even needed this&lt;/p&gt;</description>
 &lt;/ul&gt;</description>
     </item>
     <item>
+      <title>finetuning Llama3.2 1B</title>
+      <link>https://barath.xyz/posts/newpost/</link>
+      <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
+      <guid>https://barath.xyz/posts/newpost/</guid>
+      <description>&lt;h1 id=&#34;status-update-log&#34;&gt;Status Update Log&lt;/h1&gt;
+&lt;h2 id=&#34;v001---initial-setup-and-project-kickoff&#34;&gt;v0.0.1 - Initial Setup and Project Kickoff&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Created the project directory structure and initialized version control.&lt;/li&gt;
+&lt;li&gt;Set up the basic environment using Python 3.12 and installed the required lib$&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Control or Convenience? Lessons from Implementing Vision-Language Models</title>
       <link>https://barath.xyz/posts/anotherpost/</link>
       <pubDate>Wed, 16 Oct 2024 12:00:00 +0000</pubDate>
