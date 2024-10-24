@@ -2,29 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2024-10-25T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2024-10-25T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/thirdpost/</loc>
+    <loc>https://barath.xyz/</loc>
     <lastmod>2024-10-24T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://barath.xyz/posts/thirdpost/</loc>
+    <lastmod>2024-10-24T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://barath.xyz/posts/</loc>
+    <lastmod>2024-10-24T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://barath.xyz/about/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/firstpost/</loc>
+    <loc>https://barath.xyz/posts/firstpost/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/newpost/</loc>
+    <loc>https://barath.xyz/posts/newpost/</loc>
     <lastmod>2024-10-18T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/anotherpost/</loc>
+    <loc>https://barath.xyz/posts/anotherpost/</loc>
     <lastmod>2024-10-16T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://barath.xyz/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://barath.xyz/tags/</loc>
   </url>
 </urlset>

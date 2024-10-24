@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on barath.xyz</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://barath.xyz/posts/</link>
     <description>Recent content in Posts on barath.xyz</description>
     <generator>Hugo -- 0.136.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Oct 2024 12:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://barath.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>New Post</title>
-      <link>http://localhost:1313/posts/thirdpost/</link>
+      <link>https://barath.xyz/posts/thirdpost/</link>
       <pubDate>Thu, 24 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/thirdpost/</guid>
+      <guid>https://barath.xyz/posts/thirdpost/</guid>
       <description>&lt;p&gt;Date: October 24, 2024&lt;/p&gt;
 &lt;p&gt;Introduction: This blog captures the learning journey of implementing vision-language models, exploring trade-offs betwee$&lt;/p&gt;
 &lt;p&gt;Caption: &amp;ldquo;Control or Convenience? Lessons from Implementing Vision-Language Models&amp;rdquo;&lt;/p&gt;</description>
     </item>
     <item>
       <title>finetuning Llama3.2 1B</title>
-      <link>http://localhost:1313/posts/firstpost/</link>
+      <link>https://barath.xyz/posts/firstpost/</link>
       <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/firstpost/</guid>
+      <guid>https://barath.xyz/posts/firstpost/</guid>
       <description>&lt;h1 id=&#34;status-update-log&#34;&gt;Status Update Log&lt;/h1&gt;
 &lt;h2 id=&#34;v001---initial-setup-and-project-kickoff&#34;&gt;v0.0.1 - Initial Setup and Project Kickoff&lt;/h2&gt;
 &lt;ul&gt;
@@ -243,9 +243,9 @@
     </item>
     <item>
       <title>finetuning Llama3.2 1B</title>
-      <link>http://localhost:1313/posts/newpost/</link>
+      <link>https://barath.xyz/posts/newpost/</link>
       <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/newpost/</guid>
+      <guid>https://barath.xyz/posts/newpost/</guid>
       <description>&lt;h1 id=&#34;status-update-log&#34;&gt;Status Update Log&lt;/h1&gt;
 &lt;h2 id=&#34;v001---initial-setup-and-project-kickoff&#34;&gt;v0.0.1 - Initial Setup and Project Kickoff&lt;/h2&gt;
 &lt;ul&gt;
@@ -255,9 +255,9 @@
     </item>
     <item>
       <title>Control or Convenience? Lessons from Implementing Vision-Language Models</title>
-      <link>http://localhost:1313/posts/anotherpost/</link>
+      <link>https://barath.xyz/posts/anotherpost/</link>
       <pubDate>Wed, 16 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/anotherpost/</guid>
+      <guid>https://barath.xyz/posts/anotherpost/</guid>
       <description>&lt;p&gt;Date: October 16, 2024&lt;/p&gt;
 &lt;p&gt;Introduction: This blog captures the learning journey of implementing vision-language models, exploring trade-offs between convenience and control, and documenting the practical steps involved.&lt;/p&gt;
 &lt;p&gt;Caption: &amp;ldquo;Control or Convenience? Lessons from Implementing Vision-Language Models&amp;rdquo;&lt;/p&gt;
