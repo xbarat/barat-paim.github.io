@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>barath.xyz</title>
-    <link>https://barath.xyz/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on barath.xyz</description>
     <generator>Hugo -- 0.136.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Oct 2024 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://barath.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>New Post</title>
-      <link>https://barath.xyz/posts/thirdpost/</link>
+      <link>http://localhost:1313/posts/thirdpost/</link>
       <pubDate>Thu, 24 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>https://barath.xyz/posts/thirdpost/</guid>
+      <guid>http://localhost:1313/posts/thirdpost/</guid>
       <description>&lt;p&gt;Date: October 24, 2024&lt;/p&gt;
 &lt;p&gt;Introduction: This blog captures the learning journey of implementing vision-language models, exploring trade-offs betwee$&lt;/p&gt;
 &lt;p&gt;Caption: &amp;ldquo;Control or Convenience? Lessons from Implementing Vision-Language Models&amp;rdquo;&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://barath.xyz/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>https://barath.xyz/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>&lt;p&gt;testing the site so nothign about me for now
 also not sure why i needed this online presence
 which consolidates all my links or ideas in one place
@@ -30,9 +30,9 @@ do focussed people or professionals even needed this&lt;/p&gt;</description>
     </item>
     <item>
       <title>finetuning Llama3.2 1B</title>
-      <link>https://barath.xyz/posts/firstpost/</link>
+      <link>http://localhost:1313/posts/firstpost/</link>
       <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>https://barath.xyz/posts/firstpost/</guid>
+      <guid>http://localhost:1313/posts/firstpost/</guid>
       <description>&lt;h1 id=&#34;status-update-log&#34;&gt;Status Update Log&lt;/h1&gt;
 &lt;h2 id=&#34;v001---initial-setup-and-project-kickoff&#34;&gt;v0.0.1 - Initial Setup and Project Kickoff&lt;/h2&gt;
 &lt;ul&gt;
@@ -254,9 +254,9 @@ do focussed people or professionals even needed this&lt;/p&gt;</description>
     </item>
     <item>
       <title>finetuning Llama3.2 1B</title>
-      <link>https://barath.xyz/posts/newpost/</link>
+      <link>http://localhost:1313/posts/newpost/</link>
       <pubDate>Fri, 18 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>https://barath.xyz/posts/newpost/</guid>
+      <guid>http://localhost:1313/posts/newpost/</guid>
       <description>&lt;h1 id=&#34;status-update-log&#34;&gt;Status Update Log&lt;/h1&gt;
 &lt;h2 id=&#34;v001---initial-setup-and-project-kickoff&#34;&gt;v0.0.1 - Initial Setup and Project Kickoff&lt;/h2&gt;
 &lt;ul&gt;
@@ -266,9 +266,9 @@ do focussed people or professionals even needed this&lt;/p&gt;</description>
     </item>
     <item>
       <title>Control or Convenience? Lessons from Implementing Vision-Language Models</title>
-      <link>https://barath.xyz/posts/anotherpost/</link>
+      <link>http://localhost:1313/posts/anotherpost/</link>
       <pubDate>Wed, 16 Oct 2024 12:00:00 +0000</pubDate>
-      <guid>https://barath.xyz/posts/anotherpost/</guid>
+      <guid>http://localhost:1313/posts/anotherpost/</guid>
       <description>&lt;p&gt;Date: October 16, 2024&lt;/p&gt;
 &lt;p&gt;Introduction: This blog captures the learning journey of implementing vision-language models, exploring trade-offs between convenience and control, and documenting the practical steps involved.&lt;/p&gt;
 &lt;p&gt;Caption: &amp;ldquo;Control or Convenience? Lessons from Implementing Vision-Language Models&amp;rdquo;&lt;/p&gt;
