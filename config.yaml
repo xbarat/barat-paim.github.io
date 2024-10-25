@@ -18,7 +18,7 @@ params:
   disableThemeToggle: false
   
   ShowReadingTime: true
-  ShowShareButtons: false
+  ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
@@ -35,11 +35,11 @@ params:
       AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
 
   social:
-    - name: github
+    - name: "github"
       url: "https://github.com/barat-paim"
-    - name: substack
+    - name: "substack"
       url: "https://thusai.substack.com"
-    - name: huggingface
+    - name: "huggingface"
       url: "https://huggingface.com"
 
 menu:
