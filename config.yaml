@@ -1,9 +1,47 @@
 baseURL: "https://barath.xyz/"
-languageCode: "en-us"
 title: "barath.xyz"
 theme: "PaperMod"
+paginate: 5
 
-# Add menu items
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  defaultTheme: dark
+  disableThemeToggle: false
+  
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  showtoc: true
+  tocopen: true
+  
+  # Homepage Configuration
+  homeInfoParams:
+    Title: "hi there wave.."
+    Content: |
+      AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/barat-paim"
+    - name: linkedin
+      url: "https://linkedin.com/in/yourusername"
+    - name: huggingface
+      url: "https://huggingface.com"
+
 menu:
   main:
     - identifier: archives
@@ -19,30 +57,8 @@ menu:
       url: /about/
       weight: 30
 
-params:
-  # Keep your existing params
-  homeInfoParams:
-    Title: "hi there wave.."
-    Content: |
-      AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
-
-  social:
-    - name: "GitHub"
-      url: "https://github.com/barat-paim"
-    - name: "Hugging Face"
-      url: "https://huggingface.com"
-    - name: "LinkedIn"
-      url: "https://linkedin.com/in/yourusername"
-
-  # Add these PaperMod specific settings
-  ShowBreadCrumbs: true
-  ShowPostNavLinks: true
-  ShowCodeCopyButtons: true
-  ShowRssButtonInSectionTermList: true
-  ShowToc: true
-  
-  # Archives page settings
-  archives:
-    enable: true
-    path: "/archives"
-    title: "Archives"
+# For better code highlighting
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
