@@ -5,3 +5,4 @@
 # System files to ignore
 .DS_Store
 Thumbs.db
+public/
