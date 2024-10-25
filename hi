@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# Colors for better readability
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+BOLD='\033[1m'
+
+# First check if scripts directory exists
+if [ ! -d "scripts" ]; then
+    echo -e "${RED}Error: scripts directory not found!${NC}"
+    echo "Run 'mkdir scripts' and ensure all helper scripts are present"
+    exit 1
+fi
+
+# Function to display the menu
+show_menu() {
+    clear
+    echo -e "${BLUE}${BOLD}=== Hugo Site Management ===${NC}"
+    echo -e "${BOLD}Current directory:${NC} $(pwd)"
+    echo -e "${BOLD}Site:${NC} barath.xyz"
+    echo
+    echo "1) Status Check"
+    echo "2) Create New Post"
+    echo "3) Delete Post"
+    echo "4) Show Commands"
+    echo "5) Exit"
+    echo
+    read -p "Choose an option (1-5): " choice
+}
+
+# Function to show commands/help
+show_commands() {
+    clear
+    echo -e "${BLUE}${BOLD}=== Available Commands ===${NC}"
+    echo -e "${BOLD}Usage:${NC}"
+    echo "./hi                  - Show this menu"
+    echo
+    echo -e "${BOLD}Through Menu:${NC}"
+    echo "1) Check site status and git changes"
+    echo "2) Create new post (use-kebab-case)"
+    echo "3) Delete a post"
+    echo "4) Show this help"
+    echo
+    read -p "Press Enter to continue..."
+}
+
+# Function to handle post deletion
+handle_delete() {
+    clear
+    echo -e "${BLUE}${BOLD}=== Available Posts ===${NC}"
+    echo
+    ls -1 content/posts/
+    echo
+    read -p "Enter post filename to delete (or press Enter to cancel): " filename
+    if [ -n "$filename" ]; then
+        ./scripts/delete.sh "$filename"
+    fi
+}
+
+# Main loop
+while true; do
+    show_menu
+
+    case $choice in
+        1)
+            clear
+            echo -e "${BLUE}${BOLD}=== Running Status Check ===${NC}\n"
+            ./scripts/status.sh
+            echo
+            read -p "Press Enter to continue..."
+            ;;
+        2)
+            clear
+            echo -e "${BLUE}${BOLD}=== Create New Post ===${NC}"
+            echo -e "${BOLD}Note:${NC} Use kebab-case (e.g., my-new-post)"
+            echo
+            read -p "Enter post title: " title
+            if [ -n "$title" ]; then
+                ./scripts/post.sh "$title"
+            else
+                echo "No title provided!"
+            fi
+            echo
+            read -p "Press Enter to continue..."
+            ;;
+        3)
+            handle_delete
+            echo
+            read -p "Press Enter to continue..."
+            ;;
+        4)
+            show_commands
+            ;;
+        5)
+            clear
+            echo -e "${GREEN}Goodbye! Happy blogging!${NC}"
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Invalid option. Please try again.${NC}"
+            sleep 1
+            ;;
+    esac
+done
