@@ -26,7 +26,7 @@ params:
     Content: |
       AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
 
-  socialIcons:
+  social:
     - name: "GitHub"
       url: "https://github.com/barat-paim"
     - name: "Hugging Face"
