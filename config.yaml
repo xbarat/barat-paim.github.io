@@ -34,11 +34,11 @@ params:
     Content: |
       AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
 
-  socialIcons:
+  social:
     - name: github
       url: "https://github.com/barat-paim"
-    - name: linkedin
-      url: "https://linkedin.com/in/yourusername"
+    - name: substack
+      url: "https://thusai.substack.com"
     - name: huggingface
       url: "https://huggingface.com"
 
