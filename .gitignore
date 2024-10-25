@@ -1,0 +1,7 @@
+# Hugo files to ignore
+/resources/
+.hugo_build.lock
+
+# System files to ignore
+.DS_Store
+Thumbs.db
