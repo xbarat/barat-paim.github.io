@@ -3,22 +3,46 @@ languageCode: "en-us"
 title: "barath.xyz"
 theme: "PaperMod"
 
+# Add menu items
+menu:
+  main:
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 10
+    - identifier: tea
+      name: Tea
+      url: /tea/
+      weight: 20
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
+
 params:
+  # Keep your existing params
   homeInfoParams:
     Title: "hi there wave.."
     Content: |
       AI product engineer building application on large language models and generative AI. Currently exploring model fine-tuning and multimodal applications.
 
-      Recent Projects: Model Fine-tuning LLaMA 3.2 (1B) on SQuAD dataset, talkingTom: News Agent with Speech & Visuals using DALL-E, ElevenLabs.
-
-      Previously: pm/spm in regtech, patientcare, social commerce.
-
-      Education: Stanford, IIMB, IITM.
-
-  social:
+  socialIcons:
     - name: "GitHub"
       url: "https://github.com/barat-paim"
     - name: "Hugging Face"
       url: "https://huggingface.com"
     - name: "LinkedIn"
       url: "https://linkedin.com/in/yourusername"
+
+  # Add these PaperMod specific settings
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowToc: true
+  
+  # Archives page settings
+  archives:
+    enable: true
+    path: "/archives"
+    title: "Archives"
