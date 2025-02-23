@@ -17,12 +17,13 @@ show_menu() {
     echo "1) Status Check"
     echo "2) Create New Post"
     echo "3) Quick Post with Ollama"
-    echo "4) View/Edit Posts"
-    echo "5) Delete Post"
-    echo "6) Show Commands"
-    echo "7) Exit"
+    echo "4) Deep Research Post"
+    echo "5) View/Edit Posts"
+    echo "6) Delete Post"
+    echo "7) Show Commands"
+    echo "8) Exit"
     echo
-    read -p "Choose an option (1-7): " choice
+    read -p "Choose an option (1-8): " choice
 }
 
 # Main loop
@@ -67,15 +68,29 @@ while true; do
             ;;
         4)
             clear
-            ./scripts/view.sh
+            echo -e "${BLUE}${BOLD}=== Create Deep Research Post ===${NC}"
+            echo -e "${BOLD}Note:${NC} Use kebab-case (e.g., my-research-post)"
+            echo
+            read -p "Enter post title: " title
+            if [ -n "$title" ]; then
+                ./scripts/deepresearch.sh "$title"
+            else
+                echo "No title provided!"
+            fi
+            echo
+            read -p "Press Enter to continue..."
             ;;
         5)
+            clear
+            ./scripts/view.sh
+            ;;
+        6)
             clear
             ./scripts/delete.sh
             echo
             read -p "Press Enter to continue..."
             ;;
-        6)
+        7)
             clear
             echo -e "${BLUE}${BOLD}=== Available Commands ===${NC}"
             echo -e "${BOLD}Direct Usage:${NC}"
@@ -86,7 +101,7 @@ while true; do
             echo
             read -p "Press Enter to continue..."
             ;;
-        7)
+        8)
             clear
             echo -e "${GREEN}Goodbye! Happy Writing!${NC}"
             exit 0
